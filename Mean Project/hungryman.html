@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+
+      var canvas = document.getElementById("myCanvas");
+      var context = canvas.getContext("2d");
+
+      var bg = new Image();
+      bg.src = "images/draft background.png";
+
+      var hm= new Image();
+      hm.src = "images/character-sprite.png";
+
+      var hfoods = new Image();
+      hfoods.src = "images/sprites.png"
+
+
+      var background = {
+        xs: 0,
+        ys: 0,
+        width:1024,
+        height:600,
+        x: 0,
+        y: 0,
+        draw: function(){
+            context.drawImage(bg, this.xs,this.ys,this.width,this.height,this.x,this.y,this.width,this.height);
+        }
+      };
+
+      var hungryman = {
+        xs: 0,
+        ys: 0,
+        width:229,
+        height:164,
+        x: 0,
+        y: 475,
+        pwidth: 189,
+        pheight: 124,
+        draw: function(){
+          context.drawImage(hm, this.xs,this.ys,this.width,this.height,this.x,this.y,this.pwidth,this.pheight);
+
+        }
+
+      };
+
+
+      var healthyfoods = {
+        xs: 0,
+        ys: 0,
+        width:75,
+        height:75,
+        x: Math.floor(Math.random() * (1000 - 35 + 1)) + 35, //generate 35-1000 inclusive
+        y: 140,
+        pwidth: 75,
+        pheight: 75,
+      //  rand: Math.floor(Math.random()*7+1), //generate random num 1-7 inclusive
+
+        draw: function() {
+          this.x = Math.floor(Math.random() * (1000 - 35 + 1)) + 35;
+          context.drawImage(hfoods, this.xs,randimg(),this.width,this.height,this.x,this.y,this.pwidth,this.pheight);
+        }
+
+      };
+
+
+      function randimg() {
+        var rand = Math.floor(Math.random()*7+1); //generate random num 1-7 inclusive
+
+          switch(rand)
+          {
+            case 1: return 0;
+                break;
+            case 2: return 75;
+                break;
+            case 3: return 150;
+                break;
+            case 4: return 225;
+                break;
+            case 5: return 300;
+                break;
+            case 6: return 375;
+                break;
+            case 7: return 450;
+                break;
+          }
+
+      }
+
+
+      var FPS = 10;
+      var UPDATE_RATE = 1000/FPS;
+
+
+
+      setInterval(function(){
+        update();
+        draw();
+      }, UPDATE_RATE);
+
+
+
+      function update(){
+        //hungry man animation
+        if(hungryman.ys >= 158)
+          hungryman.ys = 0;
+        else
+          hungryman.ys+=158;
+
+        //falling foods
+        healthyfoods.y +=10;
+        if (healthyfoods.y > 600)
+                healthyfoods.y = 140;
+
+        //left and right movements
+        if(!(lastx >= 805 && hungryman.x >= 805)) { //para d lumagpas sa screen
+          if (lastx > hungryman.x)
+                  hungryman.x += 20;
+              if (lastx < hungryman.x)
+                  hungryman.x -= 20;
+        }
+      }
+
+      function draw(){
+        background.draw();
+        hungryman.draw();
+        healthyfoods.draw();
+
+      }
+
+
+      var lastx;
+        var lasty;
+        //get coordinates of the mouseclick
+        $('#myCanvas').mousedown(function(e) {
+
+            lastx = e.originalEvent.layerX;
+                lasty = e.originalEvent.layerY;
+
+              //  alert(lastx + " " + lasty);;
+        });
+
+
+
+    });
+  </script>
+</head>
+<body onload="">
+  <canvas id="myCanvas" width="1024" height="600"></canvas>
+
+</body>
+</html>

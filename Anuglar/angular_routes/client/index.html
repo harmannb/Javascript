@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html ng-app = 'app'>
+<head>
+  <meta charset="utf-8">
+  <title>Document</title>
+  <script src="angular/angular.js" charset="utf-8"></script>
+  <script src="angular-route/angular-route.js" charset="utf-8"></script>
+
+  <script>
+    var app = angular.module('app', ['ngRoute'])
+    app.config(function ($routeProvider){
+      $routeProvider
+      .when('/users', {
+        templateUrl: 'partials/customizeUsers.html'
+      })
+      .when('/list', {
+        templateUrl: 'partials/userList.html'
+      })
+      .otherwise({
+        redirectTo: '/users'
+      })
+
+    })
+
+    app.factory("userFactory",[function(){
+    var factory = {};
+
+    var users = [
+      {firstName: "Harmann", lastName: "Bajwa", language: "ROR"},
+      {firstName: "John", lastName: "Smith", language: "Python"},
+    ];
+
+
+    factory.index = function(callback){
+      callback(users);
+    }
+
+    factory.create = function(user){
+      users.push(user);
+    }
+
+    factory.delete = function($index){
+        users.splice($index, 1);
+    }
+
+    return factory;
+
+    }])
+
+    app.controller('CustomizeUsersController', ['$scope', 'userFactory', function($scope, userFactory) {
+    //   $scope.sports = ['golf', 'basketball', 'hockey', 'tennis', 'football'];
+    // });
+      $scope.users = [];
+
+      function addUsers(data){
+        $scope.users = data;
+        $scope.newUser = {}
+      }
+
+      userFactory.index(addUsers);
+
+      $scope.create = function() {
+        userFactory.create($scope.newUser)
+        $scope.newUser ={};
+      }
+
+      $scope.delete = function($index) {
+        userFactory.delete($index);
+      }
+    }]);
+
+    app.controller('UserListsController', ['$scope', 'userFactory', function($scope, userFactory) {
+      function addUsers() {
+        $scope.users = data;
+      }
+      $scope.users = [];
+
+      userFactory.index(addUsers);
+    }])
+  </script>
+</head>
+
+<body>
+
+  <div ng-app='app'>
+  <a href="#/users">Customize Users</a> | <a href="#/lists">User List</a>
+  </div>
+
+  <div ng-view=""></div>
+
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Intro to Mongoose</title>
+</head>
+<body>
+  <form action='/pigs' method='post'>
+      Name: <input type='text' name='name'>
+      Age: <input type='text' name='age'>
+      <input type='submit' value='create user'>
+  </form>
+
+    <h2>Users:</h2>
+
+    <% for (var x in pigs) { %>
+      <p>Name: <%= pigs[x].name %> </p>
+      <p>Age: <%= pigs[x].age %> </p>
+    <% } %>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<div class="my-container">
+<img src="img/leaning-tower-of-pizza.jpg">
+<div>
+  <h1 class="text-xs-center p-a-2">Pizza Tower</h1>
+<form id="welcomeModal" class="form p-x-3 p-b-3 m-b-3 m-x-3" >
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe" ng-model="player.name">
+  </div>
+  <div class="form-group">
+    <label for="file">Upload your photo</label>
+    <input type="file" class="" id="file" placeholder="image.png" ng-model="player.photo">
+  </div>
+  <button type="submit" class="btn btn-primary" ng-click="startGame()">Start Game</button>
+</form>
+

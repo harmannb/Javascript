@@ -1,0 +1,28 @@
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+var body = ""
+
+app.use(bodyParser.urlencoded());
+app.use(express.static(__dirname + "/static"))
+
+app.get('/', function(request, response){
+  res.setHeader('content-type', 'text/plain');
+  res.end("universe");
+});
+
+app.post('/hello', function(request, response) {
+  response.writeHead(200, {
+    'Content-Type': 'text/plain',
+    'body'
+  })
+});
+
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+
+app.listen(8000, function(){
+  console.log("listening to port 8000");
+})

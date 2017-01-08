@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <title>Dojo Query</title>
+</head>
+<body>
+  <button id="clickbutton">Click Button</button>
+  <button id="hoverbutton">Hover Button</button>
+
+
+  <script type="text/javascript">
+
+  $Dojo = (function(id){
+    var $Dojo = document.getElementById(id)
+  })
+
+  $Dojo.("click").click(function() {
+    this.myId.addEventListener("click", callback);
+    console.log("The button was clicked!")
+    return $Dojo;
+  });
+
+
+
+
+
+  </script>
+</body>
+</html>
+<!--     // function $Dojo(){
+    //   var a =  document.getElementById('clickbutton');
+    //   a.makeClick = function(callback) {
+    //     a.addEventListener("click", callback)
+    //     // console.log("click")
+    //   }
+    //   return a;
+    // }
+    // console.log($Dojo("mngb"));
+    // $Dojo("mngb").makeClick(); -->

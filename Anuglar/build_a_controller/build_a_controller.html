@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" ng-app = 'app'>
+<head>
+  <meta charset="utf-8">
+  <title>Build a Controller</title>
+   <script src = 'bower_components/angular/angular.js'></script>
+   <script>
+    var app = angular.module('app', []);
+    app.controller('productController', ['$scope', function($scope) {
+        $scope.products = [];
+        $scope.addProduct = function(){
+          console.log('you can add a new product');
+          $scope.products.push($scope.newProduct);
+          console.log($scope.newProduct);
+          $scope.newProduct = {};
+        }
+    }])
+   </script>
+</head>
+<body>
+  <div ng-controller='productController'>
+     I have {{products.length}} products.
+
+    <!-- NG-BIND/NG-CLICK/NG-MODEL/NG-REPEAT -->
+    <form>
+      <input type="text" ng-model="newProduct.name">
+        <span ng-bind="newProduct.name"></span>
+      <button ng-click = "addProduct()">Add Food</button>
+    </form>
+
+    <input type="search" ng-model="newProduct.name" placeholder="filter products..."/>
+
+    <ul>
+        <li ng-repeat="product in products">{{ product.name }}</li>
+    </ul>
+
+    <!-- NG-REPEAT(W/FILTER)/NG-IF -->
+    <ul>
+      <li ng-repeat="product in products | filter:newProduct.name as results">
+      [{{$index + 1}}] {{ product.name }}</li>
+
+      <li ng-if="results.length === 0">
+        <strong>No results found...</strong>
+      </li>
+
+    </ul>
+
+    <!-- NG-HIDE/NG-SHOW/NG-SUBMIT -->
+    Click me: <input type="checkbox" ng-model="checked"><br/>
+
+    Show:
+    <div ng-show="checked">
+      <span>I show up when your checkbox is checked.</span>
+    </div><br/>
+
+    Hide:
+    <div ng-hide="checked">
+      <span>I hide when your checkbox is checked.</span>
+    </div><br/>
+
+    <form ng-sumbit="addProduct()">
+      Enter text here:
+      <input type="text" ng-model="newProduct.name" name="text">
+      <input type="submit" value="Submit" >
+      <pre>{{ product.name }}</pre>
+
+  </form>
+
+
+</body>
+</html>

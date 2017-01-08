@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+  <title>Hunting Github</title>
+</head>
+
+<body>
+<button id="button">Button</button>
+<div id="login"></div>
+  <script type="text/javascript">
+  var button = document.getElementById('button')
+  button.addEventListener("click", whatToDoOnClick);
+
+  function whatToDoOnClick() {
+    $.get("https://api.github.com/users/harmannb", displayName)
+    function displayName(data){
+        $('#login').html(data.login);
+      // console.log(data);
+    }
+
+  }
+  </script>
+
+</body>
+
+</html>
+
+
+$Dojo("someIdForSomeButton").click(function() { console.log("The button was clicked!") });
+
+
+$Dojo("someOtherIdForSomeOtherButton").hover(function() { console.log("The button was clicked!") });
